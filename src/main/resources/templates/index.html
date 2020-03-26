@@ -1,0 +1,37 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ODC</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="aprovacao : ${aprovacaoList}">
+            <td th:text="${aprovacao.id}"></td>
+            <td th:text="${aprovacao.name}"></td>
+            <td th:text="${aprovacao.email}"></td>
+            <td><a th:href="@{'/delete/' + ${aprovacao.id}}">Delete</a></td>
+        </tr>
+    </table>
+
+    <form action="#"
+          th:action="@{/add}"
+          th:object="${newAprovacao}"
+          method="POST">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{name}" id="name" placeholder="Name">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        <label for="email">Email</label>
+        <input type="email" th:field="*{email}" id="email" placeholder="Email">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>
